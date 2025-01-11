@@ -7,26 +7,32 @@ import { UpdateStudentDto } from './update-student.dto';
 
 @Injectable()
 export class StudentService {
-    constructor(
-        @InjectRepository(Student)
-        private readonly studentRepository: Repository<Student>,
-    ){}
+  constructor(
+    @InjectRepository(Student)
+    private readonly studentRepository: Repository<Student>,
+  ) {}
 
-    createStudent(createStudentDto: CreateStudentDto): Promise<Student> {
-        const student = this.studentRepository.create(createStudentDto);
-        return this.studentRepository.save(student);
-    }
+  // Create a new student
+  createStudent(createStudentDto: CreateStudentDto): Promise<Student> {
+    const student = this.studentRepository.create(createStudentDto);
+    return this.studentRepository.save(student);
+  }
 
-    findAllStudents(): Promise<Student[]>{
-        return this.studentRepository.find();
-    }
+  // Get all students
+  async findAllStudents(): Promise<Student[]> {
+    const students = await this.studentRepository.find();
+    console.log(students);  // Log to check if data is being fetched
+    return students;
+  }
+  
+  // Update an existing student
+  async updateStudent(id: number, updateStudentDto: UpdateStudentDto): Promise<Student> {
+    await this.studentRepository.update(id, updateStudentDto);
+    return this.studentRepository.findOne({ where: { id } });
+  }
 
-    async updateStudent(id: number, updateStudentDto: UpdateStudentDto): Promise<Student>{
-        await this.studentRepository.update(id, updateStudentDto);
-        return this.studentRepository.findOne({where: { id }});
-    }
-
-    deleteStudent(id: number): Promise<void> {
-        return this.studentRepository.delete(id).then(() => undefined);
-    }
+  // Delete a student
+  deleteStudent(id: number): Promise<void> {
+    return this.studentRepository.delete(id).then(() => undefined);
+  }
 }

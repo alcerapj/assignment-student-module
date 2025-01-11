@@ -14,11 +14,11 @@ export class StudentController {
 
   @Get()
   findAllStudents() {
-    return this.studentService,this.findAllStudents();
+    return this.studentService.findAllStudents();  // Corrected line
   }
 
   @Patch(':id')
-  updateStudent(@Param('id') id: number, @Body() updateStudentDto: UpdateStudentDto){
+  updateStudent(@Param('id') id: number, @Body() updateStudentDto: UpdateStudentDto) {
     return this.studentService.updateStudent(id, updateStudentDto);
   }
 
