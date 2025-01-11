@@ -15,4 +15,8 @@ export class StudentService {
         const student = this.studentRepository.create(createStudentDto);
         return this.studentRepository.save(student);
     }
+
+    findAllStudents(): Promise<Student[]>{
+        return this.studentRepository.find();
+    }
 }
