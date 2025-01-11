@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Student } from './student.entity';
 import { CreateStudentDto } from './create-student.dto';
+import { UpdateStudentDto } from './update-student.dto';
 
 @Injectable()
 export class StudentService {
@@ -18,5 +19,10 @@ export class StudentService {
 
     findAllStudents(): Promise<Student[]>{
         return this.studentRepository.find();
+    }
+
+    async updateStudent(id: number, updateStudentDto: UpdateStudentDto): Promise<Student>{
+        await this.studentRepository.update(id, updateStudentDto);
+        return this.studentRepository.findOne({where: { id }});
     }
 }
