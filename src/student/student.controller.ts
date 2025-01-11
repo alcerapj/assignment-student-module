@@ -14,7 +14,13 @@ export class StudentController {
 
   @Get()
   findAllStudents() {
-    return this.studentService.findAllStudents();  // Corrected line
+    return this.studentService.findAllStudents(); 
+  }
+
+  @Get(':id')
+  findOneStudent(@Param('id') id: string) {
+    const studentId = parseInt(id, 10); 
+    return this.studentService.findOneStudent(studentId);  
   }
 
   @Patch(':id')

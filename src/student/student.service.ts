@@ -24,7 +24,9 @@ export class StudentService {
     console.log(students);  // Log to check if data is being fetched
     return students;
   }
-  
+  findOneStudent(id: number): Promise<Student> {
+    return this.studentRepository.findOne({ where: { id } });
+}
   // Update an existing student
   async updateStudent(id: number, updateStudentDto: UpdateStudentDto): Promise<Student> {
     await this.studentRepository.update(id, updateStudentDto);
