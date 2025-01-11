@@ -25,4 +25,8 @@ export class StudentService {
         await this.studentRepository.update(id, updateStudentDto);
         return this.studentRepository.findOne({where: { id }});
     }
+
+    deleteStudent(id: number): Promise<void> {
+        return this.studentRepository.delete(id).then(() => undefined);
+    }
 }
